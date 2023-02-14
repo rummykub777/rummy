@@ -14,7 +14,7 @@ export default function Home() {
                     </div>
                 </div>
                 <div className="nav_bar">
-                    <img src="/assets/nav.png" className="nav_bg_img" />
+                    <img src="/assets/nav.png" className="nav_bg_img" alt="rummy" />
                     <div className="nav_container">
                         <div className="">
                             <img src="/assets/trophy.png" alt="rummy" />
