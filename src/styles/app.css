@@ -53,12 +53,15 @@ body {
 .rummy .header .header_container .user_profile img:first-child {
   height: 60px;
   width: 60px;
+  max-width: 100%;
+
 }
 
 .rummy .header .header_container .user_profile img:last-child {
   position: absolute;
   right: -8px;
   top: -8px;
+  max-width: 100%;
 }
 
 .rummy .header .header_container .nav_bar {
@@ -74,7 +77,7 @@ body {
 
 .rummy .header .header_container .nav_bar img {
   width: auto;
-
+  max-width: 100%;
 }
 
 .rummy .header .header_container .nav_bar .nav_container {
@@ -130,7 +133,7 @@ body {
 }
 
 .rummy .rummy-wrapper .body_container .app_logo img {
-  width: auto;
+  max-width: 100%;
   margin: auto;
 }
 
