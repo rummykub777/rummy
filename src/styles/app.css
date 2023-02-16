@@ -6,6 +6,14 @@ body {
   font-family: sans-serif;
 }
 
+.desktop_view {
+  display: block;
+}
+
+.mobile_view {
+  display: none;
+}
+
 .rummy {
   background: url("../../public/assets/bg.png") no-repeat;
   min-height: 100vh;
@@ -132,6 +140,10 @@ body {
 
 }
 
+.rummy .rummy-wrapper .body_container .app_logo {
+  text-align: center;
+}
+
 .rummy .rummy-wrapper .body_container .app_logo img {
   max-width: 100%;
   margin: auto;
@@ -145,4 +157,147 @@ body {
 .rummy .rummy-wrapper .body_container .rummy_cards img {
   width: 100%;
   height: 100%;
+}
+
+@media only screen and (min-device-width: 200px) and (max-device-width: 1024px) {
+  .desktop_view {
+    display: none;
+  }
+
+  .mobile_view {
+    display: block;
+    background: url("../../public/assets/bg-mob.png");
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .mobile_view .header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .mobile_view .header .nav_bar {
+    position: relative;
+    text-align: center;
+  }
+
+  .mobile_view .header .nav_bar .nav_bg_img {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mobile_view .header .nav_bar img {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .mobile_view .header .nav_bar .nav_container {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    grid-gap: 8px;
+    width: 70%;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .mobile_view .header .nav_bar .nav_container div {
+    width: fit-content;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile_view .header .nav_bar .nav_container div p {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    font-size: 16px;
+    color: #fcbf00;
+  }
+
+  .mobile_view .header .header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    align-items: center;
+  }
+
+  .mobile_view .header .header_container .user_container {
+    position: relative;
+  }
+
+  .mobile_view .header .header_container .user_profile {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .mobile_view .header .header_container .user_profile .user_heading {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fcbf00;
+  }
+
+  .mobile_view .header .header_container .user_profile .user_name {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+  }
+
+  .mobile_view .header .header_container .user_container img:first-child {
+    height: 80px;
+    width: 80px;
+  }
+
+  .mobile_view .header .header_container .star {
+    position: absolute;
+    right: -8px;
+    top: -8px;
+  }
+
+  .mobile_view .header .header_container .lock_key {
+    text-align: right;
+  }
+
+  .mobile_view .rummy-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 75%;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile_view .body_container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .mobile_view .body_container .app_logo {
+    text-align: center;
+  }
+
+  .mobile_view .body_container .app_logo img {
+    max-width: 100%;
+  }
+
+  .mobile_view .body_container .rummy_cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+  }
+
+  .mobile_view .body_container .rummy_cards img {
+    max-width: 100%;
+  }
 }
