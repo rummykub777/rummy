@@ -1,9 +1,36 @@
 import Modal from "react-modal/lib/components/Modal"
-import React from "react"
+import React, { useState } from "react"
 
 export default function Login(props) {
-    const { isOpen, onClose } = props
+    const { isOpen, onClose, setProfile } = props
+    const [phone, setPhone] = useState("")
+    const [error, setError] = useState("")
+    const [sending, setSending] = useState(false)
 
+    const login = () => {
+        if (!phone) {
+            setError("Enter phone number")
+            return
+        }
+        setError("")
+        setSending(true)
+        fetch("https://rummykub-be.herokuapp.com/api/user/p/" + phone)
+            .then((res) => res.json())
+            .then((data) => {
+                setSending(false)
+                if (!data.data) {
+                    setError(data.message)
+                } else {
+                    setProfile(data.data)
+                    localStorage.setItem("phone", phone)
+                    onClose()
+                }
+            })
+            .catch((err) => {
+                setError(`${err}`)
+                setSending(false)
+            })
+    }
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose} contentLabel="My dialog" className="mymodal auth-modal" overlayClassName="myoverlay auth-overlay" closeTimeoutMS={500} ariaHideApp={false}>
             <div className="" style={{ width: "100%" }}>
@@ -24,15 +51,16 @@ export default function Login(props) {
                         <input
                             type="number"
                             className="input__field"
-                            placeholder="Phone"
-                            onChange={(e) => { }} />
+                            placeholder="Enter phone number"
+                            onChange={(e) => { setPhone(e.target.value) }} />
                     </div>
+                    {error && <div>{error}</div>}
                 </div>
                 <div className=" btn-group">
-                    <button className="btn-cancel" type="button">
+                    <button className="btn-cancel" type="button" onClick={onClose} disabled={sending}>
                         Cancel
                     </button>
-                    <button className="btn-primary" type="button">
+                    <button className="btn-primary" type="button" onClick={login} disabled={sending}>
                         Login
                     </button>
                 </div>
