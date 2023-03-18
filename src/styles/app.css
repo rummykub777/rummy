@@ -30,6 +30,7 @@ body {
   grid-template-columns: 1fr 1fr 1fr;
   padding-left: 28px;
   padding-right: 28px;
+  cursor: pointer;
 }
 
 .rummy .header .header_container .user_profile {
@@ -159,7 +160,166 @@ body {
   height: 100%;
 }
 
+.mymodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #d3d4d8;
+  background: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  width: 500px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.myoverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 20%);
+  z-index: 99999;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.custom-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.custom-modal-header p {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #52006f;
+}
+
+.custom-modal-header svg {
+  fill: #52006f;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.custom-modal-header svg:hover {
+  transform: rotate(90deg);
+}
+
+.form-group {
+  width: 100%;
+}
+
+input {
+  padding: 12px 20px;
+  border: 1px solid #d3d4d8;
+  border-radius: 4px;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  transition: all 200ms;
+}
+
+.btn-primary,
+.btn-primary:focus {
+  background-color: #52006f;
+  margin-top: 20px;
+  width: auto;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: 1px solid #52006f;
+  cursor: pointer;
+  transition: all 600ms;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  color: #52006f;
+}
+
+.btn-cancel,
+.btn-cancel:focus {
+  background-color: #d3d4d8;
+  margin-top: 20px;
+  width: auto;
+  color: black;
+  padding: 12px 20px;
+  border-radius: 4px;
+  border: 1px solid #d3d4d8;
+  cursor: pointer;
+  transition: all 600ms;
+}
+
+.btn-group {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+
+button {
+  min-width: 100px;
+}
+
+.btn-cancel:hover {
+  background-color: #fff;
+  color: black;
+}
+
+label {
+  font-size: 14px;
+  display: block;
+  padding-bottom: 8px;
+
+}
+
+label span {
+  color: red;
+  font-size: 12px;
+}
+
+input:focus {
+  border: 1px solid #52006f;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
 @media only screen and (min-device-width: 200px) and (max-device-width: 1024px) {
+  .mymodal {
+    width: 90%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .btn-cancel,
+  .btn-primary {
+    min-width: auto;
+    padding: 8px 16px;
+  }
+
   .desktop_view {
     display: none;
   }
