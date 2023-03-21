@@ -3,10 +3,15 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 
 export default function Home() {
     const { unityProvider } = useUnityContext({
-        loaderUrl: "build/rummy.loader.js",
-        dataUrl: "build/rummy.data",
-        frameworkUrl: "build/rummy.framework.js",
-        codeUrl: "build/rummy.wasm",
+        loaderUrl: "./unity/my.loader.js",
+        dataUrl: "./unity/my.data.unityweb",
+        frameworkUrl: "./unity/my.framework.js.unityweb",
+        codeUrl: "./unity/my.wasm.unityweb",
     });
-    return <Unity unityProvider={unityProvider} style={{ width: "100wh", height: "100vh" }} />;
+
+    return (
+
+        <Unity style={{ width: "100vw !important", height: "100vh" }} unityProvider={unityProvider} />
+
+    );
 }
