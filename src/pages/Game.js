@@ -11,7 +11,7 @@ export default function Home() {
 
     return (
 
-        <Unity style={{ width: "100vw !important", height: "100vh" }} unityProvider={unityProvider} />
+        <Unity unityProvider={unityProvider} />
 
     );
 }
