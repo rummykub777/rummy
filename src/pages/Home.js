@@ -5,10 +5,12 @@ import Login from "../components/Login"
 import LoginButton from "../components/LoginButton"
 import Navbar from "../components/Navbar"
 import UserInfo from "../components/UserInfo"
+import Alert from "../components/Alert"
 
 export default function Home() {
     const [openModal, setOpenModal] = useState(false)
     const [profile, setProfile] = useState(null)
+    const [isAlert, setIsAlert] = useState(false)
 
     useEffect(() => {
         const phone = localStorage.getItem("phone")
@@ -32,6 +34,11 @@ export default function Home() {
             setProfile={(p) => { setProfile(p) }}
         />}
 
+        {isAlert && <Alert
+            isOpen={isAlert}
+            onClose={() => setIsAlert(!isAlert)}
+        />}
+
         {/* Desktop */}
         <section className="rummy desktop_view">
             <div className="header">
@@ -40,26 +47,26 @@ export default function Home() {
                         <UserInfo profile={profile}
                             setProfile={(p) => { setProfile(p) }}
                         />}
-                    <Navbar profile={profile} />
-                    <LockKey />
+                    <Navbar profile={profile} setIsAlert={setIsAlert} />
+                    <LockKey setIsAlert={setIsAlert} />
                 </div>
             </div>
-            <Cards />
+            <Cards profile={profile} />
         </section>
 
         {/* Mobile */}
         <section className="mobile_view">
             <div className="header">
-                <Navbar profile={profile} />
+                <Navbar profile={profile} setIsAlert={setIsAlert} />
                 <div className="header_container">
                     {!profile ? <LoginButton setOpenModal={setOpenModal} profile={profile} />
                         : <UserInfo profile={profile}
                             setProfile={(p) => { setProfile(p) }}
                         />}
-                    <LockKey />
+                    <LockKey setIsAlert={setIsAlert} />
                 </div>
             </div>
-            <Cards />
+            <Cards profile={profile} />
         </section>
     </>
     )

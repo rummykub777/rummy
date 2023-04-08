@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom"
 
-const Cards = () => {
+const Cards = ({ profile }) => {
     return <div className="rummy-wrapper">
         <div className="body_container">
             <div className="app_logo"><img src="/assets/logo.png" alt="rummy" /></div>
-            <div className="rummy_cards">
+            {profile ? <div className="rummy_cards">
                 <Link to={"/game"} ><div className="rummy_card"><img src="/assets/card1.png" alt="card" /></div></Link>
                 <Link to={"/game"} ><div className="rummy_card"><img src="/assets/card2.png" alt="card" /></div></Link>
-            </div>
+            </div> :
+                <div className="rummy_cards">
+                    <div className="rummy_card"><img src="/assets/card1.png" alt="card" /></div>
+                    <div className="rummy_card"><img src="/assets/card2.png" alt="card" /></div>
+                </div>}
         </div>
     </div >
 }

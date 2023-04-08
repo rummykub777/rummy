@@ -179,6 +179,7 @@ body {
   flex-direction: column;
 }
 
+
 .myoverlay {
   position: fixed;
   top: 0;
@@ -225,6 +226,37 @@ body {
 
 .custom-modal-header svg:hover {
   transform: rotate(90deg);
+}
+
+.alert-modal {
+  min-width: 400px;
+  width: auto;
+  max-width: 400px;
+  background-color: #52006f;
+  align-items: flex-start;
+  transform: translate(-50%, 0%);
+  top: 20px;
+  padding-bottom: 40px;
+}
+
+.alert-modal .custom-modal-header {
+  display: block;
+}
+
+.alert-modal .close-btn {
+  text-align: right;
+}
+
+.alert-modal svg {
+  fill: #fff;
+}
+
+.alert-modal p {
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  font-size: 32px;
+  color: #fff;
 }
 
 .form-group {
@@ -317,7 +349,114 @@ body::-webkit-scrollbar {
   display: none !important;
 }
 
+.page-loading {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 9;
+  inset: 0;
+}
+
+.public-header {
+  background-color: #52006f;
+  color: #fff;
+  padding: 20px 40px;
+}
+
+.public-header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.public-header .header-container .app-logo {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #fcbf00;
+}
+
+.public-header .header-container .app-logo .back {
+  color: #fcbf00;
+}
+
+.public-header .user-name {
+  font-size: 20px;
+  color: #fcbf00;
+  font-weight: 600;
+}
+
+.public-header .header-container img {
+  height: 50px;
+}
+
+#public {
+  background-color: #52006f;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  min-height: 80vh;
+}
+
+#public .rooms {
+  padding-left: 40px;
+  padding-right: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+#public .rooms .card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#public .rooms .card button {
+  margin-top: 0;
+  font-weight: 600;
+}
+
 @media only screen and (min-device-width: 200px) and (max-device-width: 1024px) {
+  #public .rooms {
+    grid-template-columns: 1fr;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .public-header {
+    padding: 12px;
+  }
+
+  .public-header .header-container img {
+    width: 100px;
+    height: auto;
+  }
+
+  .public-header .user-name {
+    font-size: 16px;
+  }
+
+  .public-header .header-container .app-logo {
+    gap: 4px;
+  }
+
+  .public-header .header-container .app-logo svg {
+    height: 16px;
+    width: 16px;
+  }
+
+  .alert-modal {
+    width: 90%;
+    min-width: auto;
+  }
+
   .mymodal {
     width: 90%;
     padding: 20px;
