@@ -51,7 +51,7 @@ export default function Home() {
                     <LockKey setIsAlert={setIsAlert} />
                 </div>
             </div>
-            <Cards profile={profile} />
+            <Cards profile={profile} setOpenModal={setOpenModal} />
         </section>
 
         {/* Mobile */}
@@ -66,7 +66,7 @@ export default function Home() {
                     <LockKey setIsAlert={setIsAlert} />
                 </div>
             </div>
-            <Cards profile={profile} />
+            <Cards profile={profile} setOpenModal={setOpenModal} />
         </section>
     </>
     )

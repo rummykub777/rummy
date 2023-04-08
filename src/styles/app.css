@@ -153,6 +153,7 @@ body {
 .rummy .rummy-wrapper .body_container .rummy_cards {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .rummy .rummy-wrapper .body_container .rummy_cards img {

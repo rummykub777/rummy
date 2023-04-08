@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Header from "../components/Header"
 import Loading from "../components/Loading"
 
@@ -45,7 +45,7 @@ export default function Public() {
                             <div><span>Cost: </span>{e.roomCost}</div>
                         </div>
                         <div>
-                            <button className="btn-primary">Join</button>
+                            <Link to={`/game?code=${e.code}`} style={{ textDecoration: "none" }} className="btn-primary">Join</Link>
                         </div>
                     </div>
                 })}
