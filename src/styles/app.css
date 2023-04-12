@@ -21,6 +21,7 @@ body {
   position: relative;
   margin-left: auto;
   margin-right: auto;
+  background-attachment: fixed;
 }
 
 
@@ -138,16 +139,18 @@ body {
   margin-left: auto;
   text-align: center;
   margin-right: 6%;
-
 }
 
 .rummy .rummy-wrapper .body_container .app_logo {
   text-align: center;
+  height: 80px;
 }
+
 
 .rummy .rummy-wrapper .body_container .app_logo img {
   max-width: 100%;
   margin: auto;
+  height: 100%;
 }
 
 .rummy .rummy-wrapper .body_container .rummy_cards {
@@ -157,8 +160,29 @@ body {
 }
 
 .rummy .rummy-wrapper .body_container .rummy_cards img {
-  width: 100%;
+  height: 250px;
+}
+
+.rummy .rummy-wrapper .rummy_side_container::-webkit-scrollbar {
+  display: none;
+}
+
+.rummy .rummy-wrapper .rummy_side_container {
+  height: 550px;
+  overflow-y: scroll;
+}
+
+.rummy #public {
+  margin-left: auto;
+  min-height: auto;
+}
+
+
+.rummy #public .rooms {
+  grid-template-columns: 1fr 1fr;
   height: 100%;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .mymodal {
@@ -395,7 +419,7 @@ body::-webkit-scrollbar {
 }
 
 #public {
-  background-color: #52006f;
+  /* background-color: #52006f; */
   padding-top: 40px;
   padding-bottom: 40px;
   min-height: 80vh;
@@ -474,12 +498,17 @@ body::-webkit-scrollbar {
     display: none;
   }
 
+  .mobile_view .rummy_side_container #public {
+    display: none;
+  }
+
   .mobile_view {
     display: block;
     background: url("../../public/assets/bg-mob.png");
-    height: 100vh;
+    min-height: 100vh;
     background-position: center;
     background-size: cover;
+    background-attachment: fixed;
   }
 
   .mobile_view .header {
@@ -581,7 +610,6 @@ body::-webkit-scrollbar {
   .mobile_view .rummy-wrapper {
     padding-left: 20px;
     padding-right: 20px;
-    height: 75%;
     display: flex;
     align-items: center;
   }
