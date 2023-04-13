@@ -15,12 +15,21 @@ export default function Game() {
         }
     }, [])
 
-    const { unityProvider, isLoaded } = useUnityContext({
+    const { unityProvider, isLoaded, sendMessage } = useUnityContext({
         loaderUrl: "./unity/my.loader.js",
         dataUrl: "./unity/my.data.unityweb",
         frameworkUrl: "./unity/my.framework.js.unityweb",
         codeUrl: "./unity/my.wasm.unityweb",
     });
+
+    useEffect(() => {
+        if (isLoaded) {
+            const query = new URLSearchParams(window.location.search);
+            const code = query.get('code')
+            sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
+        }
+    }, [isLoaded])
+
     return (
         <div style={{ backgroundColor: "#21002e" }}>
             {!isLoaded && <Loading />}

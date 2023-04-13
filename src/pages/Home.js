@@ -48,7 +48,10 @@ export default function Home() {
         {openModal && <Login
             isOpen={openModal}
             onClose={() => setOpenModal(!openModal)}
-            setProfile={(p) => { setProfile(p) }}
+            setProfile={(p) => {
+                setProfile(p)
+                fetchRooms()
+            }}
         />}
 
         {isAlert && <Alert
