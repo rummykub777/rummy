@@ -15,7 +15,7 @@ export default function Game() {
         }
     }, [])
 
-    const { unityProvider, isLoaded, sendMessage } = useUnityContext({
+    const { unityProvider, isLoaded, sendMessage, unload } = useUnityContext({
         loaderUrl: "./unity/my.loader.js",
         dataUrl: "./unity/my.data.unityweb",
         frameworkUrl: "./unity/my.framework.js.unityweb",
@@ -30,10 +30,16 @@ export default function Game() {
         }
     }, [isLoaded])
 
-    return (
-        <div style={{ backgroundColor: "#21002e" }}>
-            {!isLoaded && <Loading />}
-            <Unity unityProvider={unityProvider} />
-        </div>
-    );
+    useEffect(function () {
+        return async function () {
+            console.log(">>>>")
+            await unload()
+            //
+        };
+    }, []);
+
+    return (<div style={{ backgroundColor: "#21002e" }}>
+        {!isLoaded && <Loading />}
+        <Unity unityProvider={unityProvider} />
+    </div>);
 }
