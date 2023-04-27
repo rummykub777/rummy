@@ -26,16 +26,18 @@ export default function Game() {
         if (isLoaded) {
             const query = new URLSearchParams(window.location.search);
             const code = query.get('code')
-            console.log("WebCommunication")
             sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
+            setTimeout(() => {
+                sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
+            }, 6000);
         }
     }, [isLoaded])
 
     useEffect(function () {
         return async function () {
-            console.log(">>>>")
-            await UNSAFE__detachAndUnloadImmediate()
-            //
+            if (isLoaded) {
+                await UNSAFE__detachAndUnloadImmediate()
+            }
         };
     }, [UNSAFE__detachAndUnloadImmediate]);
 
