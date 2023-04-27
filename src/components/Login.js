@@ -54,14 +54,14 @@ export default function Login(props) {
                             placeholder="Enter phone number"
                             onChange={(e) => { setPhone(e.target.value) }} />
                     </div>
-                    {error && <div>{error}</div>}
+                    {error && <div style={{ fontSize: 12, color: "red", marginTop: 12 }}>{error}</div>}
                 </div>
                 <div className=" btn-group">
                     <button className="btn-cancel" type="button" onClick={onClose} disabled={sending}>
                         Cancel
                     </button>
                     <button className="btn-primary" type="button" onClick={login} disabled={sending}>
-                        Login
+                        {sending ? "Logging in" : "Login"}
                     </button>
                 </div>
             </div>

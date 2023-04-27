@@ -16,12 +16,13 @@ body {
 
 .rummy {
   background: url("../../public/assets/bg.png") no-repeat;
-  min-height: 100vh;
+  height: 100vh;
   background-size: cover;
   position: relative;
   margin-left: auto;
   margin-right: auto;
   background-attachment: fixed;
+  overflow: hidden;
 }
 
 
@@ -446,6 +447,27 @@ body::-webkit-scrollbar {
 #public .rooms .card button {
   margin-top: 0;
   font-weight: 600;
+}
+
+.app-btns {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+}
+
+.app-btns a:last-child {
+  margin-top: 4px;
+}
+
+.app-btns a svg {
+  height: 80px;
+  width: 80px;
+}
+
+.app-btns a {
+  color: white;
 }
 
 @media only screen and (min-device-width: 200px) and (max-device-width: 1024px) {

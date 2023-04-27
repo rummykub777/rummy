@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import Stores from "./Stores"
 
 const Cards = ({ profile, setOpenModal, loading, rooms }) => {
     return <div className="rummy-wrapper">
@@ -10,6 +11,7 @@ const Cards = ({ profile, setOpenModal, loading, rooms }) => {
                     <Link to={"/game"} ><div className="rummy_card"><img src="/assets/card1.png" alt="card" /></div></Link>
                     <Link to={"/public"} ><div className="rummy_card"><img src="/assets/card2.png" alt="card" /></div></Link>
                 </div>
+                <Stores />
                 <div id="public">
                     {loading ? "" : (rooms && rooms.length > 0 ? <div className="rooms">
                         {rooms.map((e, i) => {
@@ -26,11 +28,14 @@ const Cards = ({ profile, setOpenModal, loading, rooms }) => {
                     </div> : "")
                     }
                 </div>
-            </div> :
+            </div> : <>
                 <div className="rummy_cards" onClick={() => setOpenModal(true)}>
                     <div className="rummy_card"><img src="/assets/card1.png" alt="card" /></div>
                     <div className="rummy_card"><img src="/assets/card2.png" alt="card" /></div>
-                </div>}
+                </div>
+                <Stores />
+            </>
+            }
         </div>
     </div >
 }
