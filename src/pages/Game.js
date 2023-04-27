@@ -29,7 +29,7 @@ export default function Game() {
             sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
             setTimeout(() => {
                 sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
-            }, 6000);
+            }, 3000);
         }
     }, [isLoaded])
 
