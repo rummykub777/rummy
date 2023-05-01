@@ -26,9 +26,11 @@ export default function Game() {
         if (isLoaded) {
             const query = new URLSearchParams(window.location.search);
             const code = query.get('code')
-            sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
-            setTimeout(() => {
+            if (code)
                 sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
+            setTimeout(() => {
+                if (code)
+                    sendMessage("WebCommunication", "CreatePublicRoom", "" + code);
             }, 3000);
         }
     }, [isLoaded])
