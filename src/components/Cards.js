@@ -15,15 +15,25 @@ const Cards = ({ profile, setOpenModal, loading, rooms }) => {
                 <div id="public">
                     {loading ? "" : (rooms && rooms.length > 0 ? <div className="rooms">
                         {rooms.map((e, i) => {
-                            return <div className="card" key={i}>
+                            return (
+                              <div className="card" key={i}>
                                 <div>
-                                    <div><span>Code: </span>{e.code}</div>
-                                    <div><span>Cost: </span>{e.roomCost}</div>
+                                  <div>
+                                    <span>קוד: </span>
+                                    {e.code}
+                                  </div>
+                                  <div>
+                                    <span>נקודות: </span>
+                                    {e.roomCost}
+                                  </div>
                                 </div>
                                 <div>
-                                    <Link to={`/game?code=${e.code}`} style={{ textDecoration: "none" }} className="btn-primary">Join</Link>
+                                  <Link to={`/game?code=${e.code}`} style={{ textDecoration: "none" }} className="btn-primary">
+                                    הצטרף
+                                  </Link>
                                 </div>
-                            </div>
+                              </div>
+                            )
                         })}
                     </div> : "")
                     }

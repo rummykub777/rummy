@@ -9,7 +9,7 @@ export default function UserInfo({ profile, setProfile }) {
             <img src="/assets/star.png" className="star" height={20} width={20} alt="user" />
         </div>
         <div className="user_info">
-            <div className="user_heading">User Name</div>
+            <div className="user_heading">שם משתמש </div>
             <div className="user_name">{profile.userName}</div>
         </div>
     </div>

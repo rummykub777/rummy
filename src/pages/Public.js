@@ -45,7 +45,7 @@ export default function Public() {
                             <div><span>Cost: </span>{e.roomCost}</div>
                         </div>
                         <div>
-                            <Link to={`/game?code=${e.code}`} style={{ textDecoration: "none" }} className="btn-primary">Join</Link>
+                            <Link to={`/game?code=${e.code}`} style={{ textDecoration: "none" }} className="btn-primary">הצטרף</Link>
                         </div>
                     </div>
                 })}
