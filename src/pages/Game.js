@@ -15,11 +15,16 @@ export default function Game() {
         }
     }, [])
 
-    const { unityProvider, isLoaded, sendMessage, UNSAFE__detachAndUnloadImmediate } = useUnityContext({
-        loaderUrl: "./unity/my.loader.js",
-        dataUrl: "./unity/my.data.unityweb",
-        frameworkUrl: "./unity/my.framework.js.unityweb",
-        codeUrl: "./unity/my.wasm.unityweb",
+    const {
+      unityProvider,
+      isLoaded,
+      sendMessage,
+      UNSAFE__detachAndUnloadImmediate,
+    } = useUnityContext({
+      loaderUrl: "./unity/Rummi_Built.loader.js",
+      dataUrl: "./unity/Rummi_Built.data.unityweb",
+      frameworkUrl: "./unity/Rummi_Built.framework.js.unityweb",
+      codeUrl: "./unity/Rummi_Built.wasm.unityweb",
     });
 
     useEffect(() => {
