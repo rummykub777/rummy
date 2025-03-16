@@ -1,89 +1,311 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en-us">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welcome to Firebase Hosting</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Rummykub7777</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #unity-container { 
+            position: fixed; 
+            width: 100%; 
+            height: 100%;
+            background: #000;
+        }
+        
+        #unity-canvas { 
+            width: 100%; 
+            height: 100%; 
+            background: #000;
+        }
 
-    <!-- update the version number as needed -->
-    <script defer src="/__/firebase/11.2.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="/__/firebase/11.2.0/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/11.2.0/firebase-performance-compat.js"></script>
-    <!-- 
-      initialize the SDK after all desired features are loaded, set useEmulator to false
-      to avoid connecting the SDK to running emulators.
-    -->
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+        .mobile-only {
+            display: none;
+        }
 
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+        #portrait-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(25,0,39);
+            background: linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #landscape-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(25,0,39);
+            background: linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .tap-icon {
+            font-size: 48px;
+            margin: 20px 0;
+            animation: doubleTap 2s infinite;
+        }
+
+        @keyframes doubleTap {
+            0% { transform: scale(1); }
+            5% { transform: scale(0.8); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1); }
+            20% { transform: scale(0.8); }
+            25% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        .warning-content {
+            padding: 20px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .rotate-icon {
+            font-size: 48px;
+            margin: 20px 0;
+            display: inline-block;
+            animation: rotate 2s infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(-90deg); }
+            100% { transform: rotate(270deg); }
+        }
+
+        #portrait-warning h2 {
+            font-size: 24px;
+            margin: 0 0 10px 0;
+        }
+
+        #portrait-warning p {
+            font-size: 16px;
+            margin: 10px 0;
+            opacity: 0.8;
+        }
+
+        .panel-text {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* iOS-specific styles */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
+            }
+            #unity-container, #unity-canvas {
+                height: -webkit-fill-available;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div id="message">
-      <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+</head>
+<body>
+    <div id="portrait-warning" class="mobile-only">
+        <div class="warning-content">
+            <h2>Please Rotate Your Device</h2>
+            <div class="rotate-icon">⟳</div>
+            <h2 id="double-tap-heading">Double Tap to rotate and fullscreen</h2>
+            <p>This game works best in landscape mode!</p>
+        </div>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+
+    <div id="landscape-panel" class="mobile-only">
+        <div class="tap-icon">👆</div>
+        <p class="panel-text">Double Tap to Fullscreen!</p>
+    </div>
+
+    <div id="unity-container">
+        <canvas id="unity-canvas"></canvas>
+    </div>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const loadEl = document.querySelector('#load');
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-        // // The Firebase SDK is initialized and available here!
-        //
-        // firebase.auth().onAuthStateChanged(user => { });
-        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
-        // firebase.firestore().doc('/foo/bar').get().then(() => { });
-        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
-        // firebase.messaging().requestPermission().then(() => { });
-        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
-        // firebase.analytics(); // call to activate
-        // firebase.analytics().logEvent('tutorial_completed');
-        // firebase.performance(); // call to activate
-        //
-        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var portraitWarning = document.querySelector("#portrait-warning");
+        var landscapePanel = document.querySelector("#landscape-panel");
+        var doubleTapHeading = document.querySelector("#double-tap-heading");
+        var unityInstance = null;
+        var isFullscreen = false;
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-        try {
-          let app = firebase.app();
-          let features = [
-            'auth', 
-            'database', 
-            'firestore',
-            'functions',
-            'messaging', 
-            'storage', 
-            'analytics', 
-            'remoteConfig',
-            'performance',
-          ].filter(feature => typeof app[feature] === 'function');
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        } catch (e) {
-          console.error(e);
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        async function enterFullscreen() {
+            if (!isMobile) return;
+
+            try {
+                const element = document.documentElement;
+
+                if (isIOS) {
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100vw';
+                    document.body.style.height = '100vh';
+                    window.scrollTo(0, 0);
+                    
+                    const viewportMeta = document.querySelector('meta[name=viewport]');
+                    if (viewportMeta) {
+                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+                    }
+                } else {
+                    if (element.requestFullscreen) {
+                        await element.requestFullscreen();
+                    } else if (element.webkitRequestFullscreen) {
+                        await element.webkitRequestFullscreen();
+                    } else if (element.msRequestFullscreen) {
+                        await element.msRequestFullscreen();
+                    }
+                }
+
+                if (screen.orientation && screen.orientation.lock) {
+                    try {
+                        await screen.orientation.lock('landscape');
+                    } catch (error) {
+                        console.warn('Orientation lock failed:', error);
+                    }
+                }
+
+                isFullscreen = true;
+                checkOrientation();
+                checkPanelVisibility();
+                return true;
+            } catch (error) {
+                console.warn('Fullscreen request failed:', error);
+                return false;
+            }
         }
-      });
+
+        function checkPanelVisibility() {
+            if (!isMobile) return;
+            
+            if (window.innerWidth > window.innerHeight && !isFullscreen) {
+                landscapePanel.style.display = "flex";
+            } else {
+                landscapePanel.style.display = "none";
+            }
+        }
+
+        function checkOrientation() {
+            if (!isMobile) return;
+            
+            if (window.innerHeight > window.innerWidth) {
+                portraitWarning.style.display = "flex";
+                landscapePanel.style.display = "none";
+                
+                if (doubleTapHeading) {
+                    if (isFullscreen) {
+                        doubleTapHeading.classList.add('hidden');
+                    } else {
+                        doubleTapHeading.classList.remove('hidden');
+                    }
+                }
+            } else {
+                portraitWarning.style.display = "none";
+                if (!isFullscreen) {
+                    checkPanelVisibility();
+                }
+            }
+        }
+
+        function handleTap() {
+            if (!isMobile) return;
+            enterFullscreen();
+        }
+
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/Rummy Build.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/Rummy Build.data.unityweb",
+            frameworkUrl: buildUrl + "/Rummy Build.framework.js.unityweb",
+            codeUrl: buildUrl + "/Rummy Build.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "FunavryTechnologies",
+            productName: "Rummykub7777",
+            productVersion: "1.92",
+        };
+
+        if (isMobile) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+            container.className = "unity-mobile";
+            canvas.className = "unity-mobile";
+
+            document.querySelectorAll('.mobile-only').forEach(element => {
+                element.style.display = "none";
+            });
+        }
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                // Progress handling if needed
+            }).then((instance) => {
+                unityInstance = instance;
+                if (isMobile) {
+                    checkOrientation();
+                }
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+
+        if (isMobile) {
+            document.addEventListener('touchend', handleTap);
+            document.addEventListener('click', handleTap);
+            window.addEventListener('resize', checkOrientation);
+            window.addEventListener('orientationchange', checkOrientation);
+            
+            if (!isIOS) {
+                document.addEventListener('fullscreenchange', () => {
+                    isFullscreen = !!document.fullscreenElement;
+                    checkOrientation();
+                    checkPanelVisibility();
+                });
+            }
+
+            checkOrientation();
+        }
+
+        document.addEventListener('touchmove', function(e) {
+            if (isIOS) {
+                e.preventDefault();
+            }
+        }, { passive: false });
     </script>
-  </body>
+</body>
 </html>
