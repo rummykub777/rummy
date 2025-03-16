@@ -1,19 +1,311 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en-us">
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#753422" />
-    <meta name="description" content="locker room" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>Rummy</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Rummykub7777</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #unity-container { 
+            position: fixed; 
+            width: 100%; 
+            height: 100%;
+            background: #000;
+        }
+        
+        #unity-canvas { 
+            width: 100%; 
+            height: 100%; 
+            background: #000;
+        }
+
+        .mobile-only {
+            display: none;
+        }
+
+        #portrait-warning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(25,0,39);
+            background: linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #landscape-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(25,0,39);
+            background: linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .tap-icon {
+            font-size: 48px;
+            margin: 20px 0;
+            animation: doubleTap 2s infinite;
+        }
+
+        @keyframes doubleTap {
+            0% { transform: scale(1); }
+            5% { transform: scale(0.8); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1); }
+            20% { transform: scale(0.8); }
+            25% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        .warning-content {
+            padding: 20px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        .rotate-icon {
+            font-size: 48px;
+            margin: 20px 0;
+            display: inline-block;
+            animation: rotate 2s infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(-90deg); }
+            100% { transform: rotate(270deg); }
+        }
+
+        #portrait-warning h2 {
+            font-size: 24px;
+            margin: 0 0 10px 0;
+        }
+
+        #portrait-warning p {
+            font-size: 16px;
+            margin: 10px 0;
+            opacity: 0.8;
+        }
+
+        .panel-text {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* iOS-specific styles */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                height: -webkit-fill-available;
+            }
+            #unity-container, #unity-canvas {
+                height: -webkit-fill-available;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-</body>
+    <div id="portrait-warning" class="mobile-only">
+        <div class="warning-content">
+            <h2>Please Rotate Your Device</h2>
+            <div class="rotate-icon">⟳</div>
+            <h2 id="double-tap-heading">Double Tap to rotate and fullscreen</h2>
+            <p>This game works best in landscape mode!</p>
+        </div>
+    </div>
 
+    <div id="landscape-panel" class="mobile-only">
+        <div class="tap-icon">👆</div>
+        <p class="panel-text">Double Tap to Fullscreen!</p>
+    </div>
+
+    <div id="unity-container">
+        <canvas id="unity-canvas"></canvas>
+    </div>
+
+    <script>
+        var container = document.querySelector("#unity-container");
+        var canvas = document.querySelector("#unity-canvas");
+        var portraitWarning = document.querySelector("#portrait-warning");
+        var landscapePanel = document.querySelector("#landscape-panel");
+        var doubleTapHeading = document.querySelector("#double-tap-heading");
+        var unityInstance = null;
+        var isFullscreen = false;
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        async function enterFullscreen() {
+            if (!isMobile) return;
+
+            try {
+                const element = document.documentElement;
+
+                if (isIOS) {
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100vw';
+                    document.body.style.height = '100vh';
+                    window.scrollTo(0, 0);
+                    
+                    const viewportMeta = document.querySelector('meta[name=viewport]');
+                    if (viewportMeta) {
+                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+                    }
+                } else {
+                    if (element.requestFullscreen) {
+                        await element.requestFullscreen();
+                    } else if (element.webkitRequestFullscreen) {
+                        await element.webkitRequestFullscreen();
+                    } else if (element.msRequestFullscreen) {
+                        await element.msRequestFullscreen();
+                    }
+                }
+
+                if (screen.orientation && screen.orientation.lock) {
+                    try {
+                        await screen.orientation.lock('landscape');
+                    } catch (error) {
+                        console.warn('Orientation lock failed:', error);
+                    }
+                }
+
+                isFullscreen = true;
+                checkOrientation();
+                checkPanelVisibility();
+                return true;
+            } catch (error) {
+                console.warn('Fullscreen request failed:', error);
+                return false;
+            }
+        }
+
+        function checkPanelVisibility() {
+            if (!isMobile) return;
+            
+            if (window.innerWidth > window.innerHeight && !isFullscreen) {
+                landscapePanel.style.display = "flex";
+            } else {
+                landscapePanel.style.display = "none";
+            }
+        }
+
+        function checkOrientation() {
+            if (!isMobile) return;
+            
+            if (window.innerHeight > window.innerWidth) {
+                portraitWarning.style.display = "flex";
+                landscapePanel.style.display = "none";
+                
+                if (doubleTapHeading) {
+                    if (isFullscreen) {
+                        doubleTapHeading.classList.add('hidden');
+                    } else {
+                        doubleTapHeading.classList.remove('hidden');
+                    }
+                }
+            } else {
+                portraitWarning.style.display = "none";
+                if (!isFullscreen) {
+                    checkPanelVisibility();
+                }
+            }
+        }
+
+        function handleTap() {
+            if (!isMobile) return;
+            enterFullscreen();
+        }
+
+        var buildUrl = "Build";
+        var loaderUrl = buildUrl + "/Rummy Build.loader.js";
+        var config = {
+            dataUrl: buildUrl + "/Rummy Build.data.unityweb",
+            frameworkUrl: buildUrl + "/Rummy Build.framework.js.unityweb",
+            codeUrl: buildUrl + "/Rummy Build.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "FunavryTechnologies",
+            productName: "Rummykub7777",
+            productVersion: "1.92",
+        };
+
+        if (isMobile) {
+            var meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover';
+            document.getElementsByTagName('head')[0].appendChild(meta);
+            container.className = "unity-mobile";
+            canvas.className = "unity-mobile";
+
+            document.querySelectorAll('.mobile-only').forEach(element => {
+                element.style.display = "none";
+            });
+        }
+
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                // Progress handling if needed
+            }).then((instance) => {
+                unityInstance = instance;
+                if (isMobile) {
+                    checkOrientation();
+                }
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+        document.body.appendChild(script);
+
+        if (isMobile) {
+            document.addEventListener('touchend', handleTap);
+            document.addEventListener('click', handleTap);
+            window.addEventListener('resize', checkOrientation);
+            window.addEventListener('orientationchange', checkOrientation);
+            
+            if (!isIOS) {
+                document.addEventListener('fullscreenchange', () => {
+                    isFullscreen = !!document.fullscreenElement;
+                    checkOrientation();
+                    checkPanelVisibility();
+                });
+            }
+
+            checkOrientation();
+        }
+
+        document.addEventListener('touchmove', function(e) {
+            if (isIOS) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
 </html>

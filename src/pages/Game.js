@@ -49,15 +49,15 @@ export default function Game() {
     }, [navigate]);
 
     const {
-        unityProvider,
-        isLoaded,
-        sendMessage,
-        UNSAFE__detachAndUnloadImmediate,
+      unityProvider,
+      isLoaded,
+      sendMessage,
+      UNSAFE__detachAndUnloadImmediate,
     } = useUnityContext({
-        loaderUrl: "./unity/Rummi_Built.loader.js",
-        dataUrl: "./unity/Rummi_Built.data.unityweb",
-        frameworkUrl: "./unity/Rummi_Built.framework.js.unityweb",
-        codeUrl: "./unity/Rummi_Built.wasm.unityweb",
+      loaderUrl: "./unity/Rummi_Build.loader.js",
+      dataUrl: "./unity/Rummi_Build.data.unityweb",
+      frameworkUrl: "./unity/Rummi_Build.framework.js.unityweb",
+      codeUrl: "./unity/Rummi_Build.wasm.unityweb",
     });
 
     useEffect(() => {

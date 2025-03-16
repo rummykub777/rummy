@@ -12,7 +12,7 @@ const UnityGame = () => {
 
         // Create the Unity loader script
         const script = document.createElement("script");
-        script.src = "/Rummi_Built/loader.js"; // Note the leading slash
+        script.src = "/Rummi_Build/loader.js"; // Note the leading slash
         script.async = true;
 
         // Once the loader script is loaded, create Unity instance
@@ -22,9 +22,9 @@ const UnityGame = () => {
           if (window.createUnityInstance) {
             window
               .createUnityInstance(canvasRef.current, {
-                dataUrl: "/Rummi_Built/Rummi_Built.data.unityweb",
-                frameworkUrl: "/Rummi_Built/Rummi_Built.framework.js.unityweb",
-                codeUrl: "/Rummi_Built/Rummi_Built.wasm.unityweb",
+                dataUrl: "/Rummi_Build/Rummi_Build.data.unityweb",
+                frameworkUrl: "/Rummi_Build/Rummi_Build.framework.js.unityweb",
+                codeUrl: "/Rummi_Build/Rummi_Build.wasm.unityweb",
                 streamingAssetsUrl: "StreamingAssets",
                 companyName: "DefaultCompany",
                 productName: "Rummi",
