@@ -133,6 +133,8 @@
     </style>
 </head>
 <body>
+    <div id="root"></div>
+
     <div id="portrait-warning" class="mobile-only">
         <div class="warning-content">
             <h2>Please Rotate Your Device</h2>
@@ -151,7 +153,7 @@
         <canvas id="unity-canvas"></canvas>
     </div>
 
-    <script>
+    <script src="../build/unity/Rummy Build.loader.js">
         var container = document.querySelector("#unity-container");
         var canvas = document.querySelector("#unity-canvas");
         var portraitWarning = document.querySelector("#portrait-warning");
