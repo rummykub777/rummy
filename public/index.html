@@ -130,6 +130,11 @@
                 height: -webkit-fill-available;
             }
         }
+        html, body {
+            touch-action: manipulation;
+            /* -webkit-touch-callout: none; */
+            -webkit-user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -153,7 +158,10 @@
         <canvas id="unity-canvas"></canvas>
     </div>
 
-    <script src="../build/unity/Rummy Build.loader.js">
+
+    <div id="root"></div>
+
+    <script src="unity/Rummy_Built.loader.js">
         var container = document.querySelector("#unity-container");
         var canvas = document.querySelector("#unity-canvas");
         var portraitWarning = document.querySelector("#portrait-warning");
@@ -245,12 +253,12 @@
             enterFullscreen();
         }
 
-        var buildUrl = "Build";
-        var loaderUrl = buildUrl + "/Rummy Build.loader.js";
+        var buildUrl = "unity";
+        var loaderUrl = buildUrl + "/Rummy_Built.loader.js";
         var config = {
-            dataUrl: buildUrl + "/Rummy Build.data.unityweb",
-            frameworkUrl: buildUrl + "/Rummy Build.framework.js.unityweb",
-            codeUrl: buildUrl + "/Rummy Build.wasm.unityweb",
+            dataUrl: buildUrl + "/Rummy_Built.data.unityweb",
+            frameworkUrl: buildUrl + "/Rummy_Built.framework.js",
+            codeUrl: buildUrl + "/Rummy_Built.wasm.unityweb",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "FunavryTechnologies",
             productName: "Rummykub7777",
