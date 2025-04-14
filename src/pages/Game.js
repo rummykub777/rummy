@@ -112,41 +112,37 @@ export default function Game() {
     return (
         <div style={{ backgroundColor: "#21002e", height: "100vh", width: "100vw", position: "relative" }}>
             {!isLoaded && <Loading />}
-
             {/* Show rotate message only in portrait mode */}
             {isPortrait && (
-    <div 
-        id="rotate-message"
-        onClick={handleDoubleTap} 
-        style={{
-            position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-            background: "linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%)",
-            color: "white", display: "flex", flexDirection: "column",
-            justifyContent: "center", alignItems: "center", textAlign: "center", zIndex: 10000,
-            cursor: "pointer"
-        }}
-    >
-        <h2>Please Rotate Your Device</h2>
-        <div style={{ fontSize: "48px", margin: "20px 0", transform: "rotate(-90deg)" }}>⟳</div>
-        {!isFullscreen && <h2>Double Tap to Rotate and Fullscreen</h2>}
-        <p>This game works best in landscape mode!</p>
-    </div>
-)}
-
+                <div id="rotate-message"
+                    onClick={handleDoubleTap} 
+                    style={{
+                        position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+                        background: "linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%)",
+                        color: "white", display: "flex", flexDirection: "column",
+                        justifyContent: "center", alignItems: "center", textAlign: "center", zIndex: 10000,
+                        cursor: "pointer"
+                    }}
+                >
+                    <h2>Please Rotate Your Device</h2>
+                    <div style={{ fontSize: "48px", margin: "20px 0", transform: "rotate(-90deg)" }}>⟳</div>
+                    {!isFullscreen && <h2>Double Tap to Rotate and Fullscreen</h2>}
+                    <p>This game works best in landscape mode!</p>
+                </div>
+            )}
             <Unity unityProvider={unityProvider} />
-
             {/* Show fullscreen button only when in landscape and not fullscreen */}
             {!isFullscreen && !isPortrait && (
-    <div onClick={handleDoubleTap}  style={{ fontSize: "48px", fontWeight:"12px",
-        position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
-        background: "linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%)",
-        color: "white", display: "flex", flexDirection: "column",
-        justifyContent: "center", alignItems: "center", textAlign: "center", zIndex: 10000,
-        cursor: "pointer"
-    }}>
-        Double Tap to Fullscreen
-    </div>
-)}
+                <div onClick={handleDoubleTap}  style={{ fontSize: "48px", fontWeight:"12px",
+                    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+                    background: "linear-gradient(147deg, rgba(25,0,39,1) 0%, rgba(83,0,111,1) 100%)",
+                    color: "white", display: "flex", flexDirection: "column",
+                    justifyContent: "center", alignItems: "center", textAlign: "center", zIndex: 10000,
+                    cursor: "pointer"
+                }}>
+                    Double Tap to Fullscreen
+                </div>
+            )}
         </div>
     );
 }

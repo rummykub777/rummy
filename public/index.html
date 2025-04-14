@@ -139,34 +139,17 @@
 </head>
 <body>
     <div id="root"></div>
-
-    <div id="portrait-warning" class="mobile-only">
-        <div class="warning-content">
-            <h2>Please Rotate Your Device</h2>
-            <div class="rotate-icon">⟳</div>
-            <h2 id="double-tap-heading">Double Tap to rotate and fullscreen</h2>
-            <p>This game works best in landscape mode!</p>
-        </div>
-    </div>
-
-    <div id="landscape-panel" class="mobile-only">
-        <div class="tap-icon">👆</div>
-        <p class="panel-text">Double Tap to Fullscreen!</p>
-    </div>
-
-    <div id="unity-container">
-        <canvas id="unity-canvas"></canvas>
-    </div>
-
-
-    <div id="root"></div>
-
     <script src="unity/Rummy_Built.loader.js">
         var container = document.querySelector("#unity-container");
+        console.log(container);
         var canvas = document.querySelector("#unity-canvas");
+        console.log(canvas);
         var portraitWarning = document.querySelector("#portrait-warning");
+        console.log(portraitWarning);
         var landscapePanel = document.querySelector("#landscape-panel");
+        console.log(landscapePanel);
         var doubleTapHeading = document.querySelector("#double-tap-heading");
+        console.log(doubleTapHeading);
         var unityInstance = null;
         var isFullscreen = false;
         var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
