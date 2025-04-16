@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Loading() {
+    const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
         // Define these variables outside the script's scope
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -60,11 +61,8 @@ export default function Loading() {
             // After the loader script is loaded, execute the Unity initialization code
             const container = document.querySelector("#unity-container");
             const canvas = document.querySelector("#unity-canvas");
-            const portraitWarning = document.querySelector("#portrait-warning");
-            const landscapePanel = document.querySelector("#landscape-panel");
-            const doubleTapHeading = document.querySelector("#double-tap-heading");
-            let unityInstance = null;
-            let isFullscreen = false;
+            // let unityInstance = null;
+            // let isFullscreen = false;
 
             // Define the enterFullscreen function
             window.enterFullscreen = async function() {
@@ -103,7 +101,7 @@ export default function Loading() {
                         console.warn('Orientation lock failed:', error);
                     }
 
-                    isFullscreen = true;
+                    // isFullscreen = true;
                     checkOrientation();
                     checkPanelVisibility();
                     return true;
@@ -145,12 +143,12 @@ export default function Loading() {
             unityScript.src = loaderUrl;
             unityScript.onload = () => {
                 window.createUnityInstance(canvas, config, (progress) => {
-                    // Progress handling if needed
+                    // You can show progress if needed
                 }).then((instance) => {
-                    unityInstance = instance;
                     if (isMobile) {
                         checkOrientation();
                     }
+                    setIsLoading(false); // ✅ Moved here: after Unity is fully loaded
                 }).catch((message) => {
                     alert(message);
                 });
@@ -166,7 +164,7 @@ export default function Loading() {
                 
                 if (!isIOS) {
                     document.addEventListener('fullscreenchange', () => {
-                        isFullscreen = !!document.fullscreenElement;
+                        // isFullscreen = !!document.fullscreenElement;
                         checkOrientation();
                         checkPanelVisibility();
                     });
@@ -202,8 +200,101 @@ export default function Loading() {
     }, []);
 
     return (
-        <div id="unity-container">
+        <>
+          {isLoading && (
+            <div className="page-loading">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="200px"
+                height="200px"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="xMidYMid"
+                className="lds-wedges"
+              >
+                <g transform="translate(50,50)">
+                  <g transform="scale(1)">
+                    <g transform="translate(-50,-50)">
+                      <g transform="rotate(239.504 50 50)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          calcMode="linear"
+                          values="0 50 50;360 50 50"
+                          keyTimes="0;1"
+                          dur="0.75s"
+                          begin="0s"
+                          repeatCount="indefinite"
+                        />
+                        <path
+                          d="M50 50L50 0A50 50 0 0 1 100 50Z"
+                          fillOpacity="0.8"
+                          fill="#fdb813"
+                        />
+                      </g>
+                      <g transform="rotate(359.628 50.0024 50.0024)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          calcMode="linear"
+                          values="0 50 50;360 50 50"
+                          keyTimes="0;1"
+                          dur="1s"
+                          begin="0s"
+                          repeatCount="indefinite"
+                        />
+                        <path
+                          d="M50 50L50 0A50 50 0 0 1 100 50Z"
+                          transform="rotate(90 50 50)"
+                          fillOpacity="0.8"
+                          fill="#fdb813"
+                        />
+                      </g>
+                      <g transform="rotate(119.752 50 50)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          calcMode="linear"
+                          values="0 50 50;360 50 50"
+                          keyTimes="0;1"
+                          dur="1.5s"
+                          begin="0s"
+                          repeatCount="indefinite"
+                        />
+                        <path
+                          d="M50 50L50 0A50 50 0 0 1 100 50Z"
+                          transform="rotate(180 50 50)"
+                          fillOpacity="0.8"
+                          fill="#52006f"
+                        />
+                      </g>
+                      <g transform="rotate(239.876 50 50)">
+                        <animateTransform
+                          attributeName="transform"
+                          type="rotate"
+                          calcMode="linear"
+                          values="0 50 50;360 50 50"
+                          keyTimes="0;1"
+                          dur="3s"
+                          begin="0s"
+                          repeatCount="indefinite"
+                        />
+                        <path
+                          d="M50 50L50 0A50 50 0 0 1 100 50Z"
+                          transform="rotate(270 50 50)"
+                          fillOpacity="0.8"
+                          fill="#52006f"
+                        />
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          )}
+      
+          <div id="unity-container">
             <canvas id="unity-canvas"></canvas>
-        </div>
-    );
+          </div>
+        </>
+      );      
 }
