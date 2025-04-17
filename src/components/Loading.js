@@ -23,8 +23,10 @@ export default function Loading() {
             const isFullscreen = !!document.fullscreenElement;
             
             if (window.innerHeight > window.innerWidth) {
+              if(portraitWarning?.style && landscapePanel?.style) {
                 portraitWarning.style.display = "flex";
                 landscapePanel.style.display = "none";
+              }
                 
                 if (doubleTapHeading) {
                     if (isFullscreen) {
@@ -34,7 +36,9 @@ export default function Loading() {
                     }
                 }
             } else {
+              if(portraitWarning?.style) {
                 portraitWarning.style.display = "none";
+              }
                 if (!isFullscreen) {
                     checkPanelVisibility();
                 }
@@ -47,10 +51,10 @@ export default function Loading() {
             const landscapePanel = document.querySelector("#landscape-panel");
             const isFullscreen = !!document.fullscreenElement;
             
-            if (window.innerWidth > window.innerHeight && !isFullscreen) {
-                landscapePanel.style.display = "flex";
-            } else {
-                landscapePanel.style.display = "none";
+            if (window.innerWidth > window.innerHeight) {
+              if (landscapePanel?.style) {
+                landscapePanel.style.display = !isFullscreen ? "flex" : "none";
+              }
             }
         }
         
