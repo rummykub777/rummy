@@ -59,7 +59,7 @@ export default function Game() {
         frameworkUrl: "./unity/Rummy_Built.framework.js",
         codeUrl: "./unity/Rummy_Built.wasm.unityweb",
     });
-
+    console.log(unityProvider,isLoaded, sendMessage)
     useEffect(() => {
         if (isLoaded) {
             const query = new URLSearchParams(window.location.search);
